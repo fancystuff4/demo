@@ -6,8 +6,5 @@
   "devDependencies": {
     "jest": "^25.5.4",
     "semantic-release": "^17.4.7"
-  },
-  "scripts": {
-    "test": "jest test.js"
   }
 }
