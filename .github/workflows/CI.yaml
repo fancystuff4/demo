@@ -29,16 +29,6 @@ jobs:
           format: "v${major}.${minor}.${patch}-prerelease${increment}"
 
 
-       # create release info and push it upstream
-      - name: conventional Changelog Action
-        id: changelog
-        uses: TriPSs/conventional-changelog-action@v3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          git-branch: "{{ github.sha }}"
-          skip-on-empty: false
-          skip-git-pull: true
-
             
       - name: Create Release
         if: ${{ !startsWith(github.ref, 'refs/tags/') }}
