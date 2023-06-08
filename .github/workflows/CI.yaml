@@ -35,7 +35,6 @@ jobs:
         uses: TriPSs/conventional-changelog-action@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          version-file: "demo/**"
           git-branch: "{{ github.sha }}"
           skip-on-empty: false
           skip-git-pull: true
