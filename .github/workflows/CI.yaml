@@ -29,6 +29,18 @@ jobs:
           format: "v${major}.${minor}.${patch}-prerelease${increment}"
 
 
+       # create release info and push it upstream
+      - name: conventional Changelog Action
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          version-file: "./package.json,./package-lock.json,./config/app.json"
+          git-branch: ${{ github.sha }}
+          skip-on-empty: false
+          skip-git-pull: true
+
+            
       - name: Create Release
         if: ${{ !startsWith(github.ref, 'refs/tags/') }}
         uses: actions/create-release@v1
@@ -37,5 +49,6 @@ jobs:
         with:
           tag_name: ${{ steps.versioning.outputs.version }}
           release_name: ${{ steps.versioning.outputs.version }}
+           body: ${{ steps.changelog.outputs.clean_changelog }}
           prerelease: true
 
