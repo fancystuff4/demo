@@ -4,7 +4,7 @@
   "repository": "https://github.com/zeke/semantic-release-with-github-actions",
   "main": "index.js",
   "devDependencies": {
-    "jest": "^25.1.0",
+    "jest": "^25.5.4",
     "semantic-release": "^17.4.7"
   },
   "scripts": {
