@@ -38,16 +38,16 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "your-package-name-you-want-to-see-on-npm-lol",
+  "name": "fancystuff4",
   "author": "Hellooooooo",
-  "module": "dist/your-package-name-you-want-to-see-on-npm-lol.esm.js",
+  "module": "dist/fancystuff4.esm.js",
   "size-limit": [
     {
-      "path": "dist/your-package-name-you-want-to-see-on-npm-lol.cjs.production.min.js",
+      "path": "dist/fancystuff4.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/your-package-name-you-want-to-see-on-npm-lol.esm.js",
+      "path": "dist/fancystuff4.esm.js",
       "limit": "10 KB"
     }
   ],
@@ -77,5 +77,4 @@
     "type": "git",
     "url": "https://github.com/fancystuff4/demo.git"
    },
-   "publish": false
 }
