@@ -1,43 +1,21 @@
-name: CI
+name: Node.js CI
+
 on:
   push:
-    branches:
-      - main
-
+    branches: [ main ]
 
 jobs:
-  release:
-    permissions:
-      contents: write
+  publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          # Fetch all commits
-          fetch-depth: 0
-
-      - name: Semantic versioning
-        id: versioning
-        uses: PaulHatch/semantic-version@v4.0.2
-        with:
-          branch: main
-          tag_prefix: "v"
-          major_pattern: "BREAKING CHANGE:"
-          minor_pattern: "feat:"
-          format: "v${major}.${minor}.${patch}-prerelease${increment}"
-
-
-            
-      - name: Create Release
-        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.versioning.outputs.version }}
-          release_name: ${{ steps.versioning.outputs.version }}
-          body: ${{ steps.changelog.outputs.clean_changelog }}
-          prerelease: true
-
+    if: ${{ github.ref == 'refs/heads/main' }}
+    steps: 
+    - uses: actions/checkout@v2
+    - name: Use Node.js 16.x
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16.x
+    - run: npm ci
+    - run: npm run semantic-release
+      env: 
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
