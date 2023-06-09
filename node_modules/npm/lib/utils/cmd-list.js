@@ -1,93 +1,5 @@
-const abbrev = require('abbrev')
-
-// These correspond to filenames in lib/commands
-// Please keep this list sorted alphabetically
-const commands = [
-  'access',
-  'adduser',
-  'audit',
-  'bugs',
-  'cache',
-  'ci',
-  'completion',
-  'config',
-  'dedupe',
-  'deprecate',
-  'diff',
-  'dist-tag',
-  'docs',
-  'doctor',
-  'edit',
-  'exec',
-  'explain',
-  'explore',
-  'find-dupes',
-  'fund',
-  'get',
-  'help',
-  'help-search',
-  'hook',
-  'init',
-  'install',
-  'install-ci-test',
-  'install-test',
-  'link',
-  'll',
-  'login',
-  'logout',
-  'ls',
-  'org',
-  'outdated',
-  'owner',
-  'pack',
-  'ping',
-  'pkg',
-  'prefix',
-  'profile',
-  'prune',
-  'publish',
-  'query',
-  'rebuild',
-  'repo',
-  'restart',
-  'root',
-  'run-script',
-  'search',
-  'set',
-  'shrinkwrap',
-  'star',
-  'stars',
-  'start',
-  'stop',
-  'team',
-  'test',
-  'token',
-  'uninstall',
-  'unpublish',
-  'unstar',
-  'update',
-  'version',
-  'view',
-  'whoami',
-]
-
-// These must resolve to an entry in commands
-const aliases = {
-
-  // aliases
-  author: 'owner',
-  home: 'docs',
-  issues: 'bugs',
-  info: 'view',
-  show: 'view',
-  find: 'search',
-  add: 'install',
-  unlink: 'uninstall',
-  remove: 'uninstall',
-  rm: 'uninstall',
-  r: 'uninstall',
-
-  // short names for common things
+// short names for common things
+const shorthands = {
   un: 'uninstall',
   rb: 'rebuild',
   list: 'ls',
@@ -106,14 +18,15 @@ const aliases = {
   v: 'view',
   run: 'run-script',
   'clean-install': 'ci',
-  'clean-install-test': 'install-ci-test',
+  'clean-install-test': 'cit',
   x: 'exec',
   why: 'explain',
+}
+
+const affordances = {
   la: 'll',
   verison: 'version',
   ic: 'ci',
-
-  // typos
   innit: 'init',
   // manually abbrev so that install-test doesn't make insta stop working
   in: 'install',
@@ -124,54 +37,125 @@ const aliases = {
   isnt: 'install',
   isnta: 'install',
   isntal: 'install',
-  isntall: 'install',
   'install-clean': 'ci',
   'isntall-clean': 'ci',
   hlep: 'help',
   'dist-tags': 'dist-tag',
   upgrade: 'update',
   udpate: 'update',
+  login: 'adduser',
+  'add-user': 'adduser',
+  author: 'owner',
+  home: 'docs',
+  issues: 'bugs',
+  info: 'view',
+  show: 'view',
+  find: 'search',
+  add: 'install',
+  unlink: 'uninstall',
+  remove: 'uninstall',
+  rm: 'uninstall',
+  r: 'uninstall',
   rum: 'run-script',
-  sit: 'install-ci-test',
+  sit: 'cit',
   urn: 'run-script',
   ogr: 'org',
-  'add-user': 'adduser',
 }
 
-const deref = (c) => {
-  if (!c) {
-    return
-  }
+// these are filenames in .
+const cmdList = [
+  'ci',
+  'install-ci-test',
+  'install',
+  'install-test',
+  'uninstall',
+  'cache',
+  'config',
+  'set',
+  'get',
+  'update',
+  'outdated',
+  'prune',
+  'pack',
+  'find-dupes',
+  'dedupe',
+  'hook',
 
-  // Translate camelCase to snake-case (i.e. installTest to install-test)
-  if (c.match(/[A-Z]/)) {
-    c = c.replace(/([A-Z])/g, m => '-' + m.toLowerCase())
-  }
+  'rebuild',
+  'link',
 
-  // if they asked for something exactly we are done
-  if (commands.includes(c)) {
-    return c
-  }
+  'publish',
+  'star',
+  'stars',
+  'unstar',
+  'adduser',
+  'login', // This is an alias for `adduser` but it can be confusing
+  'logout',
+  'unpublish',
+  'owner',
+  'access',
+  'team',
+  'deprecate',
+  'shrinkwrap',
+  'token',
+  'profile',
+  'audit',
+  'fund',
+  'org',
 
-  // if they asked for a direct alias
-  if (aliases[c]) {
-    return aliases[c]
-  }
+  'help',
+  'ls',
+  'll',
+  'search',
+  'view',
+  'init',
+  'version',
+  'edit',
+  'explore',
+  'docs',
+  'repo',
+  'bugs',
+  'root',
+  'prefix',
+  'bin',
+  'whoami',
+  'diff',
+  'dist-tag',
+  'ping',
+  'pkg',
 
-  const abbrevs = abbrev(commands.concat(Object.keys(aliases)))
+  'test',
+  'stop',
+  'start',
+  'restart',
+  'run-script',
+  'set-script',
+  'completion',
+  'doctor',
+  'exec',
+  'explain',
+]
 
-  // first deref the abbrev, if there is one
-  // then resolve any aliases
-  // so `npm install-cl` will resolve to `install-clean` then to `ci`
-  let a = abbrevs[c]
-  while (aliases[a]) {
-    a = aliases[a]
-  }
-  return a
-}
+const plumbing = ['birthday', 'help-search']
+
+// these commands just shell out to something else or handle the
+// error themselves, so it's confusing and weird to write out
+// our full error log banner when they exit non-zero
+const shellouts = [
+  'exec',
+  'run-script',
+  'test',
+  'start',
+  'stop',
+  'restart',
+  'birthday',
+]
 
 module.exports = {
-  aliases,
-  commands,
-  deref,
+  aliases: Object.assign({}, shorthands, affordances),
+  shorthands,
+  affordances,
+  cmdList,
+  plumbing,
+  shellouts,
 }
