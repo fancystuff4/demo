@@ -76,10 +76,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/fancystuff4/demo.git"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }
