@@ -18,7 +18,7 @@
     "semantic-release": "bin/semantic-release.js"
   },
   "bugs": {
-    "url": "https://github.com/semantic-release/semantic-release/issues"
+    "url": "https://github.com/fancystuff4/demo/issues"
   },
   "contributors": [
     "Gregor Martynus (https://twitter.com/gr2m)",
@@ -84,7 +84,7 @@
     "index.js",
     "cli.js"
   ],
-  "homepage": "https://github.com/semantic-release/semantic-release#readme",
+  "homepage": "https://github.com/fancystuff4/demo#readme",
   "keywords": [
     "author",
     "automation",
@@ -121,7 +121,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/semantic-release/semantic-release.git"
+    "url": "git+https://github.com/fancystuff4/demo.git"
   },
   "scripts": {
     "codecov": "codecov -f coverage/coverage-final.json",
