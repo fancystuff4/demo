@@ -1,8 +1,7 @@
 name: Release
-"on":
+on:
   push:
-    branches:
-      - main
+    branches: main
 permissions:
   contents: read # for checkout
 jobs:
@@ -22,6 +21,7 @@ jobs:
           node-version: lts/*
       # pinned version updated automatically by Renovate.
       # details at https://semantic-release.gitbook.io/semantic-release/usage/installation#global-installation
+      - run: npm ci
       - run: npx semantic-release@21.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
