@@ -128,7 +128,7 @@
     "lint": "prettier --check \"*.{js,json,md}\" \".github/**/*.{md,yml}\" \"docs/**/*.md\" \"{bin,lib,test}/**/*.js\"",
     "lint:fix": "prettier --write \"*.{js,json,md}\" \".github/**/*.{md,yml}\" \"docs/**/*.md\" \"{bin,lib,test}/**/*.js\"",
     "pretest": "npm run lint",
-    "semantic-release": "./bin/semantic-release.js",
+    "semantic-release": "./bin/semantic-release.js --branches main",
     "test": "c8 ava --verbose",
     "test:ci": "c8 ava --verbose"
   },
