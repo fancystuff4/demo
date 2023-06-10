@@ -134,7 +134,7 @@
   },
   "renovate": {
     "extends": [
-      "github>semantic-release/.github"
+      "github>fancustuff4/.github"
     ]
   }
 }
